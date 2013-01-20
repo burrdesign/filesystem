@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+#RewriteBase /
+
+#Verzeichnisbaumstruktur sprechend nachbilden
+RewriteRule ^tree/(.*)$ index.php?path=$1 [PT,L,QSA]
+
+#Suchergebnisse sprechend nachbilden
+RewriteRule ^search/(.*)$ index.php?s=$1 [PT,L,QSA]
+</IfModule>
+
+Options -Indexes
