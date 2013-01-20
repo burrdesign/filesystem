@@ -1,0 +1,257 @@
+/**
+ * @Autor: Julia Betzer, Julian Burr
+ * @Datum: 20.1.2013
+ * @Version: Alpha 0.1
+ *
+ * @Verwendete Farbwerte:
+ *		helles Braun (tan)	: #ded2d0
+ *		mittleres Braun		: #5d504f
+ *		dunkles Braun		: #3d302f
+ **/
+ 
+
+/* Schriftart importieren */
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
+
+/* Allgemein */
+body { 
+	padding:0; 
+	margin:0; 
+	background:none #ded2d0; 
+	font-family:"Droid Sans","Trebuchet MS",Arial; 
+	font-size:13px;
+	line-height:1.5; 
+	color:#3d302f; 
+}
+#wrap_all {
+	width:100%;
+	float:left;
+}
+.wrapped_content {
+	width:500px; 
+	margin-left:-250px; 
+	padding-left:50%; /* Inhalt zentrieren */
+}
+
+/* Kopfbereich */
+#wrap_header {
+}
+#wrap_inner_header {
+	position:relative;
+}
+
+/* Buttons im Kopfbereich */
+.header_action { 
+	position:absolute;
+	top:0; 
+	right:0; 
+}
+.header_action a.button_login { 
+	display:block; 
+	padding:6px 10px 6px 18px; 
+	background:url("/images/icons/tan/lock_fill_6x8.png") #3d302f no-repeat 7px center; 
+	color:#ded2d0; 
+	float:left; 
+	margin-left:10px; 
+	cursor:pointer; 
+	font-size:75%; 
+}
+
+/* Hauptcontent */
+#wrap_content {
+	width:100%;
+	float:left;
+}
+#wrap_inner_content {
+	padding-top:45px; 
+	position:relative; 
+}
+
+/* Intro */
+#wrap_content .intro { 
+	width:100%; 
+	float:left; 
+}
+#wrap_content .intro h1 {
+	font-size:240%; 
+	margin:20px 0;
+}
+
+/* Suchbox */
+#wrap_content .searchbox {
+	width:100%;
+	float:left;
+}
+#wrap_content .searchbox input.text { 
+	width:420px; 
+	border:1px solid #5d504f; 
+	padding:10px; 
+	float:left; 
+	color:#3d302f;
+}
+#wrap_content .searchbox input.search_submit { 
+	width:50px; 
+	padding:10px 0; 
+	background:url("/images/icons/tan/magnifying_glass_16x16.png") #3d302f no-repeat center center; 
+	color:#ded2d0; 
+	float:right; 
+	display:block; 
+	border:0 none; 
+	text-indent:-999px; 
+	overflow:hidden; 
+	cursor:pointer; 
+}
+
+/* Slider */
+#slider { 
+	width:100%; 
+	float:left; 
+	margin-top:30px; 
+	position:relative; 
+	clear:both; /* Um den Umbruch bei der Animation zu verhindern */
+}
+#slider #wrap_inner_slider .inner_box {
+	width:100%; 
+	border:1px solid #5d504f; 
+	float:left; 
+	background:#fff; 
+	position:relative;
+}
+#slider #wrap_inner_slider .inner_box pre {
+	float:left;
+	width:100%;
+}
+
+/* Slider-Titelleiste (Breadcrumb) */
+#slider h3.breadcrumb {
+	height:35px;
+	line-height:35px;
+	width:100%;
+	float:left;
+	background:#d2c4c2; 
+	margin:0; 
+	border-bottom:1px solid #5d504f; 
+	font-weight:normal; 
+	color:#3d302f; 
+	font-size:100%;
+}
+#slider h3.breadcrumb span { 
+	font-weight:bold; 
+	color:#3d302f; 
+}
+#slider h3.breadcrumb span.root { 
+	margin-left:15px; 
+}
+#slider h3.breadcrumb a, 
+#slider h3.breadcrumb a span, 
+#slider .filetree table.file_list td a { 
+	color:#5d504f; 
+	text-decoration:none; 
+}
+#slider h3.breadcrumb a:hover, 
+#slider .filetree table.file_list td a:hover { 
+	text-decoration:underline; 
+	color:#3d302f; 
+}
+#slider h3.breadcrumb span.search_title_intro {
+	margin-left:15px;
+	font-weight:normal;
+}
+
+/* Breadcrumb-Icon */
+#slider h3.breadcrumb span.path_icon_box { 
+	position:absolute; 
+	top:0; 
+	height:35px; 
+	line-height:35px; 
+	font-weight:normal; 
+	background:url("/images/icons/tan/book_alt2_12x11.png") #3d302f no-repeat 7px center; 
+	color:#ded2d0; 
+	display:block; 
+	padding:0 10px 0 25px; 
+	left:-70px; 
+}
+#slider h3.breadcrumb span.path_icon_box_pfeil { 
+	position:absolute; 
+	width:15px; 
+	height:35px; 
+	display:block; 
+	top:0; 
+	left:-15px; 
+	background:url("/images/icons/pfeil_32x32.png") transparent no-repeat right center; 
+}
+
+/* Slider Verzeichnisstruktur */
+#slider .filetree { 
+	width:100%; 
+	float:left; 
+}
+#slider .filetree table.file_list { 
+	margin:0; 
+	padding:0; 
+	width:100%; 
+	float:left; 
+}
+#slider .filetree table.file_list td { 
+	padding:5px 15px; 
+	border-top:1px solid #ddd; 
+}
+#slider .filetree table.file_list tr.first td { 
+	border:0 none; 
+} 
+#slider .filetree table.file_list td.icon { 
+	width:10px; 
+}
+#slider .filetree table.file_list td.icon_file { 
+	background:url("/images/icons/brown_dark/document_alt_stroke_9x12.png") transparent no-repeat center center; 
+}
+#slider .filetree table.file_list td.icon_dir { 
+	background:url("/images/icons/brown_dark/folder_stroke_12x12.png") transparent no-repeat center center; 
+}
+#slider .filetree table.file_list td.name { 
+	padding-left:0; 
+}
+#slider .filetree table.file_list td.type, 
+#slider .filetree table.file_list td.size, 
+#slider .filetree table.file_list td.lastchanged { 
+	font-size:75%; 
+}
+#slider .filetree table.file_list td.size { 
+	text-align:right; 
+}
+
+/* Action-Buttons im Slider */
+#slider .slider_actions { 
+	float:right; 
+	margin:10px 0; 
+	position:relative; 
+}
+#slider .slider_actions a { 
+	display:block; 
+	padding:6px 10px 6px 25px; 
+	background:url("/images/icons/tan/plus_alt_12x12.png") #3d302f no-repeat 7px center; 
+	color:#ded2d0; 
+	float:left; 
+	margin-left:10px; 
+	cursor:pointer; 
+}
+
+/* Footer */
+#wrap_footer {
+	width:100%;
+	float:left;
+	font-size:75%;
+	margin-top:30px;
+}
+
+/* Lade-Overlay */
+#overlay { 
+	position:absolute;
+	top:0; 
+	left:0; 
+	width:100%; 
+	height:100%; 
+	background:none #fff; 
+	z-index:9999; 
+}
+
