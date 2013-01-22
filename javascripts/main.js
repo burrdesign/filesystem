@@ -11,28 +11,31 @@
 $(document).ready(function(){
 
 	//Lade-Overlay initialisieren
-	$("body").append("<div id='overlay'></div>");
+	if($("#overlay") == false){
+		$("body").append("<div id='overlay'></div>");
+	}
 	$("#overlay").css("opacity",0.2).hide();
 	
 	$("#slider a").live("click",function(){
+	
+		//Ziel ermitteln
+		var linkhref = $(this).attr("href");
 	
 		//Lade-Overlay einblenden + Body-Overflow aufheben (um Scrollbar zu vermeiden)
 		$("#overlay").show();
 		$("body").css("overflow-x","hidden");
 		
-		//Ziel ermitteln
-		var linkhref = $(this).attr("href");
-		
 		//Slider-Box nach links aus dem Bildschirm sliden
 		$("#slider").animate({ "margin-left":"-" + $(window).width() + "px" },400,"",function(){
 		
 			//neue Seite per AJAX in die Box laden
-			console.log("Lade Inhalt: " + linkhref);
 			$("#slider").load(linkhref + " #wrap_inner_slider");
 			
 			//URL in die URL-Leiste eintragen (HTML5!, hier sollte ggf. auch die History manipuliert werden!?)
 			var stateObj = { foo: "bar" };
-			history.pushState(stateObj, "", linkhref);
+			if(typeof history.pushState != "undefined"){ 
+				history.pushState(stateObj, "", linkhref);
+			}
 			
 			//Box nach rechts neben den Bildschirm setzen
 			$("#slider").css("margin-left",$(window).width() + "px");
