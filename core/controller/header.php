@@ -5,8 +5,16 @@
 	 * @Version: Alpha 0.1
 	 *
 	 * @Anmerkungen:
-	 * Controller für die Header-Ausgabe (in Abhängigkeit des Login-Status)
+	 * Controller für die Header-Ausgabe (auch in Abhängigkeit des Login-Status)
 	 **/
+	
+	$icon = array("info" => "icon-info", "ok" => "icon-checkmark", "error" => "icon-x");
+	if(is_array($message)){
+		foreach($message as $type => $text){
+			$iconclass = $icon[$type];
+			echo "<div class='message message_{$type}'><p><span class='icon {$iconclass}'></span> {$text}</p></div>";
+		}
+	}
 
 	switch($_SESSION['login']['type']){
 		case "user":
@@ -16,5 +24,3 @@
 			//Gast
 			include($_SERVER['DOCUMENT_ROOT']."core/view/guest_header.php");
 	}
-
-?>
