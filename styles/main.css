@@ -32,29 +32,58 @@ body {
 	margin-left:-250px; 
 	padding-left:50%; /* Inhalt zentrieren */
 }
+.innerbox {
+	float:left;
+	padding:15px;
+}
 
 /* Kopfbereich */
 #wrap_header {
+    width: 100%;
+	float:left;
 }
 #wrap_inner_header {
 	position:relative;
 }
 
+/* Messages */
+#wrap_inner_header .message {
+	width:100%;
+	float:left;
+	color:#fff;
+}
+#wrap_inner_header .message p {
+	float:left;
+	padding:5px 10px;
+	margin:0;
+	text-align:left;
+}
+#wrap_inner_header .message_info {
+	background-color:#3a8eb7;
+}
+#wrap_inner_header .message_ok {
+	background-color:#9acd32;
+}
+#wrap_inner_header .message_error {
+	background-color:#c00;
+}
+
 /* Buttons im Kopfbereich */
 .header_action { 
-	position:absolute;
-	top:0; 
-	right:0; 
+	float:right; 
 }
 .header_action a.button_login { 
 	display:block; 
-	padding:6px 10px 6px 18px; 
-	background:url("/images/icons/tan/lock_fill_6x8.png") #3d302f no-repeat 7px center; 
+	padding:6px 10px; 
+	background:none #3d302f; 
 	color:#ded2d0; 
 	float:left; 
 	margin-left:10px; 
 	cursor:pointer; 
 	font-size:75%; 
+}
+.header_action a.button_login:hover { 
+	background:none #2b2221;
 }
 
 /* Hauptcontent */
@@ -63,7 +92,7 @@ body {
 	float:left;
 }
 #wrap_inner_content {
-	padding-top:45px; 
+	padding-top:35px; 
 	position:relative; 
 }
 
@@ -100,6 +129,9 @@ body {
 	text-indent:-999px; 
 	overflow:hidden; 
 	cursor:pointer; 
+}
+#wrap_content .searchbox input.search_submit:hover { 
+	background-color:#2b2221;
 }
 
 /* Slider */
@@ -159,18 +191,24 @@ body {
 }
 
 /* Breadcrumb-Icon */
-#slider h3.breadcrumb span.path_icon_box { 
+#slider h3.breadcrumb div.path_icon_box { 
 	position:absolute; 
 	top:0; 
 	height:35px; 
 	line-height:35px; 
 	font-weight:normal; 
-	background:url("/images/icons/tan/book_alt2_12x11.png") #3d302f no-repeat 7px center; 
+	background:none #3d302f;
 	color:#ded2d0; 
 	display:block; 
-	padding:0 10px 0 25px; 
+	padding:0 10px; 
 	left:-70px; 
 }
+
+#slider h3.breadcrumb div.path_icon_box span.icon {
+	color:#ded2d0;
+	font-size:90%;
+}
+
 #slider h3.breadcrumb span.path_icon_box_pfeil { 
 	position:absolute; 
 	width:15px; 
@@ -216,8 +254,17 @@ body {
 #slider .filetree table.file_list td.lastchanged { 
 	font-size:75%; 
 }
-#slider .filetree table.file_list td.size { 
+#slider .filetree table.file_list td.size,
+#slider .filetree table.file_list td.lastchanged { 
 	text-align:right; 
+}
+#slider .filetree table.file_list td.deleteDir a {
+	float:right;
+	color:#ded2d0;
+	text-decoration:none;
+}
+#slider .filetree table.file_list td.deleteDir a:hover {
+	color:#c00;
 }
 
 /* Action-Buttons im Slider */
@@ -228,12 +275,19 @@ body {
 }
 #slider .slider_actions a { 
 	display:block; 
-	padding:6px 10px 6px 25px; 
-	background:url("/images/icons/tan/plus_alt_12x12.png") #3d302f no-repeat 7px center; 
+	padding:6px 10px; 
+	background:none #3d302f; 
 	color:#ded2d0; 
 	float:left; 
 	margin-left:10px; 
 	cursor:pointer; 
+	text-decoration:none;
+}
+#slider .slider_actions a:hover { 
+	background:none #2b2221;
+}
+#slider .slider_actions a span {
+	font-size:90%;
 }
 
 /* Footer */
