@@ -25,11 +25,16 @@ $(document).ready(function(){
 		$("#overlay").show();
 		$("body").css("overflow-x","hidden");
 		
+		//Messages einklappen
+		$("#wrap_header .message").slideUp("100");
+		
 		//Slider-Box nach links aus dem Bildschirm sliden
 		$("#slider").animate({ "margin-left":"-" + $(window).width() + "px" },400,"",function(){
 		
 			//neue Seite per AJAX in die Box laden
+			//$("#slider").load(linkhref);
 			$("#slider").load(linkhref + " #wrap_inner_slider");
+			$("#wrap_header").load(linkhref + " #wrap_inner_header");
 			
 			//URL in die URL-Leiste eintragen (HTML5!, hier sollte ggf. auch die History manipuliert werden!?)
 			var stateObj = { foo: "bar" };
@@ -45,7 +50,10 @@ $(document).ready(function(){
 				//Overlay wieder ausblenden + Overflow wieder aufheben
 				$("#overlay").hide();
 				$("body").css("overflow-x","auto");
+				//Messages ausklappen
+				$("#wrap_header .message").slideDown("100");
 			});
+
 		});
 		
 		//das eigentliche Click-Event des Links unterdrücken
