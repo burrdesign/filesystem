@@ -51,10 +51,8 @@
 	}
 	
 	//Breadcrumb-Icon ausgeben
-	echo "<span class='path_icon_box'>Pfad</span>";
+	echo "<div class='path_icon_box'><span class='icon icon-book-alt2'></span> Pfad</div>";
 	echo "<span class='path_icon_box_pfeil'></span>";
 	
 	echo "</h3>";
-	
-?>
 

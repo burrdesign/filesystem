@@ -9,6 +9,7 @@
 	 **/
 
 	$root = getRoot();
+	$sep = getRootSep();
 
 	$reqpath = $_REQUEST['path'];
 	$filepath = $_SERVER['DOCUMENT_ROOT']."files/".$reqpath;
@@ -63,12 +64,12 @@
 			$printedfirst = true;
 		}
 		echo "
-			<tr class='{$class}'>
-				<td class='icon icon_dir'></td>
+			<tr class='{$class} dir'>
+				<td class='icon'><span class='icon-folder-stroke'></span></td>
 				<td class='name'><a href='{$root}{$reqpath}{$printdir}/'>{$printdir}</a></td>
 				<td class='type'>Verzeichnis</td>
 				<td class='size'></td>
-				<td class='lastchanged'></td>
+				<td class='deleteDir'><a href='{$root}{$reqpath}{$sep}action=deleteDir&dirname={$printdir}'><span class='icon-x'></span></a></td>
 			</tr>";
 	}
 
@@ -91,8 +92,8 @@
 		
 		//ausgeben
 		echo "
-			<tr class='{$class}'>
-				<td class='icon icon_file'></td>
+			<tr class='{$class} file'>
+				<td class='icon'><span class='icon-document-alt-stroke'></span></td>
 				<td class='name'><a href='{$root}{$reqpath}{$printfile}'>{$printfile}</a></td>
 				<td class='type'>Datei</td>
 				<td class='size'>{$filesize}{$filesize_einheit}</td>
@@ -105,5 +106,3 @@
 	
 	echo "</div>";
 	echo "</div>";
-	
-?>

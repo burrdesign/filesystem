@@ -10,5 +10,5 @@
 ?>
 
 <div class="header_action">
-	<a class="button button_login">anmelden</a>
+	<a class="button button_login"><span class="icon-lock-fill"></span> anmelden</a>
 </div>

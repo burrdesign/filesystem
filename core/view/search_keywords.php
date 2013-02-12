@@ -10,6 +10,3 @@
 	
 	$keywords = $_REQUEST['s'];
 	echo "<h3 class='breadcrumb'><span class='search_title_intro'>Suchergebnis f&uuml;r</span> <span class='keywords'>{$keywords}</span></h3>";
-	
-?>
-

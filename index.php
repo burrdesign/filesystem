@@ -29,7 +29,7 @@
 	include($_SERVER['DOCUMENT_ROOT']."core/lib.php");
 	
 	/**
-	 * Controller für die Actionphase (evtl. unnötig)
+	 * Controller für die Actionphase (z.B. für den Dateiupload etc.)
 	 **/
 	include($_SERVER['DOCUMENT_ROOT']."core/controller/actions.php");
 ?>
@@ -45,6 +45,10 @@
 	
 	<!-- Stylesheets einbinden -->
 	<link rel="stylesheet" type="text/css" href="/styles/main.css">
+	
+	<!-- Iconfont -->
+	<link rel="stylesheet" href="/images/icons/iconfont/style.css">
+	<!--[if lte IE 7]><script type="text/javascript" src="/images/icons/iconfont/lte-ie7.js"></script><![endif]-->
 </head>
 
 <body>
@@ -74,7 +78,7 @@
 			<div class="searchbox">
 				<form name="filesearch" action="" method="post">
 					<input type="text" class="text" name="s" value="<?php echo $_REQUEST['s']; ?>">
-					<input type="submit" class="search_submit" value="suchen">
+					<input type="submit" class="search_submit icon-magnifying-glass" value="suchen">
 				</form>
 			</div>
 			
