@@ -16,6 +16,11 @@
 	 
 	if($_REQUEST['action'] == 'createDir'){
 	
+		/**
+		 * Pfad prüfen, ob Verzeichnis bereits existiert,
+		 * andernfalls anlegen
+		 **/
+	
 		$filepath = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $_REQUEST['path'] . $_REQUEST['dirname'];
 		if(is_dir($filepath)){
 			$message['error'] = "Verzeichnis existiert bereits!";
@@ -29,6 +34,11 @@
 		}
 		
 	} elseif($_REQUEST['action'] == 'deleteDir'){
+	
+		/**
+		 * Pfad prüfen, ob zu löschendes Verzeichnis auch existiert
+		 * und ob dieses Verzeichnis auch leer ist, nur dann löschen
+		 **/
 	
 		$filepath = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $_REQUEST['path'] . $_REQUEST['dirname'];
 		if(is_dir($filepath)){
