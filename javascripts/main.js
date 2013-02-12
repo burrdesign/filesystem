@@ -32,9 +32,8 @@ $(document).ready(function(){
 		$("#slider").animate({ "margin-left":"-" + $(window).width() + "px" },400,"",function(){
 		
 			//neue Seite per AJAX in die Box laden
-			//$("#slider").load(linkhref);
-			$("#slider").load(linkhref + " #wrap_inner_slider");
 			$("#wrap_header").load(linkhref + " #wrap_inner_header");
+			$("#slider").load(linkhref + " #wrap_inner_slider");
 			
 			//URL in die URL-Leiste eintragen (HTML5!, hier sollte ggf. auch die History manipuliert werden!?)
 			var stateObj = { foo: "bar" };

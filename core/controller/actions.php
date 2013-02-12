@@ -63,8 +63,42 @@
 			unset($_POST['action']);
 		}
 		
-	} elseif($_REQUEST['action'] == 'createDir'){
+	} elseif($_REQUEST['action'] == 'uploadFile'){
 	
-		//
+		/**
+		 * Pfad prüfen, ob Verzeichnis bereits existiert,
+		 * andernfalls anlegen
+		 **/
+	
+		$filepath = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $_REQUEST['path'] . $_FILES['upload']['name'];
+		if(is_file($filepath)){
+			$message['error'] = "Datei existiert bereits!";
+			$_GET['action'] = "newFile";
+			$_POST['action'] = "newFile";
+		} else {
+			move_uploaded_file($_FILES['upload']['tmp_name'],$filepath);
+			unset($_GET['action']);
+			unset($_POST['action']);
+			$message['ok'] = "Datei wurde erfolgreich hochgeladen!";
+		}
+	
+	} elseif($_REQUEST['action'] == 'deleteFile'){
+	
+		/**
+		 * Pfad prüfen, ob Datei wirklich existiert, und nur dann
+		 * auch löschen (evtl. TODO: Sicherheitsabfrage)
+		 **/
+	
+		$filepath = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $_REQUEST['path'] . $_REQUEST['filename'];
+		if(!is_file($filepath)){
+			$message['error'] = "Datei konnte nicht gel&ouml;scht werden!";
+			unset($_GET['action']);
+			unset($_POST['action']);
+		} else {
+			unlink($filepath);
+			unset($_GET['action']);
+			unset($_POST['action']);
+			$message['ok'] = "Datei wurde erfolgreich gel&ouml;scht!";
+		}
 	
 	}
