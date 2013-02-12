@@ -19,6 +19,10 @@
 		$type = "";
 		if(isset($request['s'])){
 			$type = "SEARCH";
+		} elseif($request['action'] == "newDir"){
+			$type = "NEWDIR";
+		} elseif($request['action'] == "newFile"){
+			$type = "NEWFILE";
 		} elseif(is_file($_SERVER['DOCUMENT_ROOT']."files/".$request['path'])){
 			$type = "FILE";
 		} else {
@@ -39,6 +43,18 @@
 		
 		//ermittelte Root-Variable zurückgeben
 		return $root;
+	}
+	
+	function getRootSep(){
+		//ist die .htaccess Umleitung aktiv?
+		if(strpos($_SERVER['REQUEST_URI'],"/tree") !== false && strpos($_SERVER['REQUEST_URI'],"/tree") == 0){
+			$sep = "?";
+		} else {
+			$sep = "&";
+		}
+		
+		//und ermittelten Separator zurückgeben
+		return $sep;
 	}
 	 
 ?>

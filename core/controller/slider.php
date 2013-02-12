@@ -34,9 +34,23 @@
 			echo "</div>";
 			include($_SERVER['DOCUMENT_ROOT']."core/view/sliderbuttons.php");
 			break;
+		case "NEWDIR":
+			//Verzeichnis anlegen
+			echo "<div class='inner_box'>";
+			include($_SERVER['DOCUMENT_ROOT']."core/view/breadcrumb.php");
+			include($_SERVER['DOCUMENT_ROOT']."core/view/newdir.php");
+			echo "</div>";
+			include($_SERVER['DOCUMENT_ROOT']."core/view/sliderbuttons.php");
+			break;
+		case "NEWFILE":
+			//Verzeichnis anlegen
+			echo "<div class='inner_box'>";
+			include($_SERVER['DOCUMENT_ROOT']."core/view/breadcrumb.php");
+			include($_SERVER['DOCUMENT_ROOT']."core/view/newfile.php");
+			echo "</div>";
+			include($_SERVER['DOCUMENT_ROOT']."core/view/sliderbuttons.php");
+			break;				
 		default:
 			//404-Fehler: Unbekannte Anfrage
 			break;
 	}
-	
-?>
