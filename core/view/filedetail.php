@@ -6,7 +6,7 @@
 	 *
 	 * @Anmerkungen:
 	 * Ausgabe der Dateiinformationen in der Slider-Hauptbox
-	 **/
+	 */
 	
 	echo "<pre>Eine Datei wurde aufgerufen!</pre>";
 	

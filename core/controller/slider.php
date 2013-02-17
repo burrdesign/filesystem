@@ -6,7 +6,7 @@
 	 *
 	 * @Anmerkungen:
 	 * Controller für die Slider-Ausgabe (in Abhängigkeit des Action-Types)
-	 **/
+	 */
 
 	$_TYPE = getActionType($_POST, $_GET);
 	
@@ -14,7 +14,7 @@
 		case "SEARCH":
 			//Suchergebnis ausgeben
 			echo "<div class='inner_box'>";
-			include($_SERVER['DOCUMENT_ROOT']."core/view/search_keywords.php");
+			include($_SERVER['DOCUMENT_ROOT']."core/view/breadcrumb.php");
 			include($_SERVER['DOCUMENT_ROOT']."core/view/search_result.php");
 			echo "</div>";
 			break;
@@ -49,7 +49,23 @@
 			include($_SERVER['DOCUMENT_ROOT']."core/view/newfile.php");
 			echo "</div>";
 			include($_SERVER['DOCUMENT_ROOT']."core/view/sliderbuttons.php");
-			break;				
+			break;
+		case "LOGIN":
+			//Loginmaske ausgeben
+			echo "<div class='inner_box'>";
+			include($_SERVER['DOCUMENT_ROOT']."core/view/breadcrumb.php");
+			include($_SERVER['DOCUMENT_ROOT']."core/view/loginform.php");
+			echo "</div>";
+			include($_SERVER['DOCUMENT_ROOT']."core/view/sliderbuttons.php");
+			break;		
+		case "USER":
+			//Benutzer verwalten
+			echo "<div class='inner_box'>";
+			include($_SERVER['DOCUMENT_ROOT']."core/view/breadcrumb.php");
+			include($_SERVER['DOCUMENT_ROOT']."core/view/benutzerverwaltung.php");
+			echo "</div>";
+			include($_SERVER['DOCUMENT_ROOT']."core/view/sliderbuttons.php");
+			break;		
 		default:
 			//404-Fehler: Unbekannte Anfrage
 			break;

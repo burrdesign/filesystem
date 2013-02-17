@@ -6,7 +6,7 @@
 	 *
 	 * @Anmerkungen:
 	 * Ausgabe des aktuellen Verzeichnisinhalts anhand des Pfad-Parameters
-	 **/
+	 */
 
 	$root = getRoot();
 	$sep = getRootSep();

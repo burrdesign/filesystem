@@ -16,7 +16,7 @@ $(document).ready(function(){
 	}
 	$("#overlay").css("opacity",0.2).hide();
 	
-	$("#slider a").live("click",function(){
+	$("#slider a, .header_action a").live("click",function(){
 	
 		//Ziel ermitteln
 		var linkhref = $(this).attr("href");

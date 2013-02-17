@@ -6,7 +6,7 @@
 	 *
 	 * @Anmerkungen:
 	 * Ausgabe des Formulars zum hochladen einer neuen Datei
-	 **/
+	 */
 
 	$root = getRoot();
 	$sep = getRootSep();
@@ -25,8 +25,12 @@
 	echo "
 		<form name='newFile' action='{$root}{$reqpath}' method='post' enctype='multipart/form-data'>
 			<input type='hidden' name='action' value='uploadFile'>
-			<input type='file' name='upload'>
-			<input type='submit' class='submit' value='Datei hochladen'>
+			<table class='form form_newdir'>
+				<tr>
+					<td><input type='file' name='upload'></td>
+					<td><input type='submit' class='submit' value='Datei hochladen'></td>
+				</tr>
+			</table>
 		</form>
 		";
 	

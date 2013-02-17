@@ -7,6 +7,7 @@
  *		helles Braun (tan)	: #ded2d0
  *		mittleres Braun		: #5d504f
  *		dunkles Braun		: #3d302f
+ *		dunkleres Braun		: #2b2221
  **/
  
 
@@ -68,11 +69,11 @@ body {
 	background-color:#c00;
 }
 
-/* Buttons im Kopfbereich */
+/* Buttons + Infos im Kopfbereich */
 .header_action { 
 	float:right; 
 }
-.header_action a.button_login { 
+.header_action a.button { 
 	display:block; 
 	padding:6px 10px; 
 	background:none #3d302f; 
@@ -80,10 +81,25 @@ body {
 	float:left; 
 	margin-left:10px; 
 	cursor:pointer; 
-	font-size:75%; 
+	font-size:75%;
+	text-decoration:none;
 }
-.header_action a.button_login:hover { 
+.header_action a.button:hover { 
 	background:none #2b2221;
+}
+
+.header_info {
+	float:left;
+	display:block; 
+	padding:6px 10px; 
+	background:none #3d302f; 
+	color:#ded2d0; 
+	float:left;
+	font-size:75%;
+	text-decoration:none;
+}
+.header_info span.username {
+	font-weight:bold;
 }
 
 /* Hauptcontent */
@@ -171,22 +187,24 @@ body {
 	font-weight:bold; 
 	color:#3d302f; 
 }
-#slider h3.breadcrumb span.root { 
+#slider h3.breadcrumb span.root,
+#slider h3.breadcrumb span.first { 
 	margin-left:15px; 
 }
 #slider h3.breadcrumb a, 
 #slider h3.breadcrumb a span, 
-#slider .filetree table.file_list td a { 
+#slider .filetree table.file_list td a,
+#slider .userlist table.user_list td a { 
 	color:#5d504f; 
 	text-decoration:none; 
 }
 #slider h3.breadcrumb a:hover, 
-#slider .filetree table.file_list td a:hover { 
+#slider .filetree table.file_list td a:hover,
+#slider .userlist table.user_list td a:hover { 
 	text-decoration:underline; 
 	color:#3d302f; 
 }
-#slider h3.breadcrumb span.search_title_intro {
-	margin-left:15px;
+#slider h3.breadcrumb span.first {
 	font-weight:normal;
 }
 
@@ -201,12 +219,13 @@ body {
 	color:#ded2d0; 
 	display:block; 
 	padding:0 10px; 
-	left:-70px; 
+	left:-43px; 
 }
 
 #slider h3.breadcrumb div.path_icon_box span.icon {
 	color:#ded2d0;
-	font-size:90%;
+	float:left;
+	margin-top:2px;
 }
 
 #slider h3.breadcrumb span.path_icon_box_pfeil { 
@@ -220,21 +239,25 @@ body {
 }
 
 /* Slider Verzeichnisstruktur */
-#slider .filetree { 
+#slider .filetree,
+#slider .userlist { 
 	width:100%; 
 	float:left; 
 }
-#slider .filetree table.file_list { 
+#slider .filetree table.file_list,
+#slider .userlist table.user_list { 
 	margin:0; 
 	padding:0; 
 	width:100%; 
 	float:left; 
 }
-#slider .filetree table.file_list td { 
+#slider .filetree table.file_list td,
+#slider .userlist table.user_list td { 
 	padding:5px 15px; 
 	border-top:1px solid #ddd; 
 }
-#slider .filetree table.file_list tr.first td { 
+#slider .filetree table.file_list tr.first td,
+#slider .userlist table.user_list tr.first td { 
 	border:0 none; 
 } 
 #slider .filetree table.file_list td.icon { 
@@ -251,20 +274,48 @@ body {
 }
 #slider .filetree table.file_list td.type, 
 #slider .filetree table.file_list td.size, 
-#slider .filetree table.file_list td.lastchanged { 
+#slider .filetree table.file_list td.lastchanged,
+#slider .userlist table.user_list td.name,
+#slider .userlist table.user_list td.nachname,
+#slider .userlist table.user_list td.gruppe,
+#slider .userlist table.user_list td.lastlogin { 
 	font-size:75%; 
 }
 #slider .filetree table.file_list td.size,
-#slider .filetree table.file_list td.lastchanged { 
+#slider .filetree table.file_list td.lastchanged,
+#slider .userlist table.user_list td.lastlogin { 
 	text-align:right; 
 }
-#slider .filetree table.file_list td.deleteDir a {
+#slider .filetree table.file_list td.deleteDir a,
+#slider .userlist table.user_list td.deleteUser a {
 	float:right;
 	color:#ded2d0;
 	text-decoration:none;
 }
-#slider .filetree table.file_list td.deleteDir a:hover {
+#slider .filetree table.file_list td.deleteDir a:hover,
+	#slider .userlist table.user_list td.deleteUser a:hover {
 	color:#c00;
+}
+
+/* Slider Login Form */
+#slider table.form td {
+	padding:2px 4px 2px 0;
+	vertical-align:middle;
+}
+#slider table.form input.text { 
+	padding:5px; border:1px solid #3d302f;
+}
+#slider table.form input.submit {
+	padding:5px;
+	display:block;
+	float:left;
+	background-color:#3d302f;
+	color:#ded2d0;
+	cursor:pointer;
+	border:0 none;
+}
+#slider table.form input.submit:hover {
+	background:none #2b2221;
 }
 
 /* Action-Buttons im Slider */

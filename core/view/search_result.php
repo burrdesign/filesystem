@@ -6,9 +6,9 @@
 	 *
 	 * @Anmerkungen:
 	 * Ausgabe des Suchergbnisses in der Slider-Hauptbox
-	 **/
+	 */
 	
-	echo "<pre>Hier stehen dann die Suchbegriffe</pre>";
+	echo "<pre>Hier stehen dann das Suchergebnis.</pre>";
 	
 ?>
 

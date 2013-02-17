@@ -6,7 +6,7 @@
 	 *
 	 * @Anmerkungen:
 	 * Hier werden alle Grundklassen, Grundfunktionen und absolute Variablen eingebunden
-	 **/
+	 */
 	 
 	function getActionType($post, $get){
 		//Parameter überprüfen
@@ -23,6 +23,10 @@
 			$type = "NEWDIR";
 		} elseif($request['action'] == "newFile"){
 			$type = "NEWFILE";
+		} elseif($request['action'] == "Login" && $_SESSION['login']['type'] != "user"){
+			$type = "LOGIN";
+		} elseif($request['action'] == "User"){
+			$type = "USER";
 		} elseif(is_file($_SERVER['DOCUMENT_ROOT']."files/".$request['path'])){
 			$type = "FILE";
 		} else {

@@ -6,7 +6,7 @@
 	 *
 	 * @Anmerkungen:
 	 * Ausgabe des Formulars zum anlegen eines neuen Verzeichnisses
-	 **/
+	 */
 
 	$root = getRoot();
 	$sep = getRootSep();
@@ -25,8 +25,12 @@
 	echo "
 		<form name='newDir' action='{$root}{$reqpath}' method='post'>
 			<input type='hidden' name='action' value='createDir'>
-			<input type='text' name='dirname' value='{$reqname}'>
-			<input type='submit' class='submit' value='Verzeichnis anlegen'>
+			<table class='form form_newdir'>
+				<tr>
+					<td><input type='text' class='text' name='dirname' value='{$reqname}'></td>
+					<td><input type='submit' class='submit' value='Verzeichnis anlegen'></td>
+				</tr>
+			</table>
 		</form>
 		";
 	

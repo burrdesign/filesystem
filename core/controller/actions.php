@@ -10,7 +10,7 @@
 	 * auch der Ausgabetyp geändert werden.
 	 * Außerdem können hier Messages gesetzt werden, die dann im Seitenkopf
 	 * ausgegeben werden. Dazu dient das Array $message[TYP] = NACHRICHT
-	 **/
+	 */
 	 
 	$message = array();
 	 
@@ -19,7 +19,7 @@
 		/**
 		 * Pfad prüfen, ob Verzeichnis bereits existiert,
 		 * andernfalls anlegen
-		 **/
+		 */
 	
 		$filepath = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $_REQUEST['path'] . $_REQUEST['dirname'];
 		if(is_dir($filepath)){
@@ -38,13 +38,13 @@
 		/**
 		 * Pfad prüfen, ob zu löschendes Verzeichnis auch existiert
 		 * und ob dieses Verzeichnis auch leer ist, nur dann löschen
-		 **/
+		 */
 	
 		$filepath = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $_REQUEST['path'] . $_REQUEST['dirname'];
 		if(is_dir($filepath)){
 			$handle = opendir($filepath);
 			$cnt = 0;
-			while($r = readdir($filepath)){
+			while($r = readdir($handle)){
 				if($r != "." && $r != ".."){
 					$cnt++;
 				}
@@ -68,7 +68,7 @@
 		/**
 		 * Pfad prüfen, ob Verzeichnis bereits existiert,
 		 * andernfalls anlegen
-		 **/
+		 */
 	
 		$filepath = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $_REQUEST['path'] . $_FILES['upload']['name'];
 		if(is_file($filepath)){
@@ -87,7 +87,7 @@
 		/**
 		 * Pfad prüfen, ob Datei wirklich existiert, und nur dann
 		 * auch löschen (evtl. TODO: Sicherheitsabfrage)
-		 **/
+		 */
 	
 		$filepath = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $_REQUEST['path'] . $_REQUEST['filename'];
 		if(!is_file($filepath)){
@@ -101,4 +101,40 @@
 			$message['ok'] = "Datei wurde erfolgreich gel&ouml;scht!";
 		}
 	
+	} elseif($_REQUEST['action'] == 'doLogin'){
+	
+		/**
+		 * Eingaben prüfen + wenn korrekt, Benutzer anmelden
+		 */
+	
+		if(!empty($_POST['username']) && !empty($_POST['password'])){
+			$testusername = "test";
+			$testpassword = md5("test");
+			if($_POST['username'] == $testusername && md5($_POST['password']) == $testpassword){
+				$_SESSION['login']['type'] = "user";
+				$_SESSION['login']['username'] = $_POST['username'];
+				$_SESSION['login']['gruppe'] = "root";
+				$message['ok'] = "Sie wurden erfolgreich eingeloggt!";
+			} else {
+				$message['error'] = "Benutzerdaten sind ungültig!";
+				$_GET['action'] = "Login";
+				$_POST['action'] = "Login";
+			}
+		} else {
+			$message['error'] = "Geben Sie Benutzernamen und Passwort an!";
+			$_GET['action'] = "Login";
+			$_POST['action'] = "Login";
+		}
+		
+	} elseif($_REQUEST['action'] == 'Logout'){
+	
+		/**
+		 * Benutzer abmelden
+		 */
+	
+		unset($_SESSION['login']);
+		$message['ok'] = "Sie wurden erfolgreich abgemeldet!";
+		
 	}
+	
+	

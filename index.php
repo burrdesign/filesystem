@@ -12,7 +12,6 @@
 	 * Die Anfragen werden über folgende Parameter gesteuert:
 	 *
 	 * @Conroller-Parameter:
-	 *		show	= Direktes Adressieren eine bestimmten Maske
 	 *		path	= Der anzuzeigende Verzeichnis- oder Dateipfad
 	 *		s		= Suchbegriff(e)
 	 *		action	= auszuführende Action (z.B. Login, etc.)
@@ -20,17 +19,17 @@
 	 * Diese Parameter könne als GET oder POST übergeben werden. An den beiden Stellen, die sich je
 	 * nach Anfrage ändern wird der Inhalt über modulare Controller gesteuert! Dadurch wird das
 	 * MVC-Prinzip auf minimalistischer Weise simuliert.
-	 **/
+	 */
 	session_start(); 
 	
 	/**
 	 * Allgemeine Variablen- und Funktionsbibliotheken laden
-	 **/
+	 */
 	include($_SERVER['DOCUMENT_ROOT']."core/lib.php");
 	
 	/**
 	 * Controller für die Actionphase (z.B. für den Dateiupload etc.)
-	 **/
+	 */
 	include($_SERVER['DOCUMENT_ROOT']."core/controller/actions.php");
 ?>
 
@@ -61,7 +60,7 @@
 			<?php
 				/**
 				 * Controller für den Header-Content
-				 **/
+				 */
 				include($_SERVER['DOCUMENT_ROOT']."core/controller/header.php");
 			?>
 		</div>
@@ -87,7 +86,7 @@
 					<?php
 						/**
 						 * Controller für den Hauptcontent (Slider)
-						 **/
+						 */
 						include($_SERVER['DOCUMENT_ROOT']."core/controller/slider.php");
 					?>
 				</div>

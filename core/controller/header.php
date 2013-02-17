@@ -6,7 +6,7 @@
 	 *
 	 * @Anmerkungen:
 	 * Controller für die Header-Ausgabe (auch in Abhängigkeit des Login-Status)
-	 **/
+	 */
 	
 	$icon = array("info" => "icon-info", "ok" => "icon-checkmark", "error" => "icon-x");
 	if(is_array($message)){
@@ -20,7 +20,9 @@
 		case "user":
 			//Benutzer ist angemeldet
 			include($_SERVER['DOCUMENT_ROOT']."core/view/user_header.php");
+			break;
 		default:
 			//Gast
 			include($_SERVER['DOCUMENT_ROOT']."core/view/guest_header.php");
+			break;
 	}
