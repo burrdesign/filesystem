@@ -26,6 +26,7 @@
 	 * Allgemeine Variablen- und Funktionsbibliotheken laden
 	 */
 	include($_SERVER['DOCUMENT_ROOT']."core/lib.php");
+	include($_SERVER['DOCUMENT_ROOT']."/core/sqlmanager.php");
 	
 	/**
 	 * Controller für die Actionphase (z.B. für den Dateiupload etc.)

@@ -108,12 +108,21 @@
 		 */
 	
 		if(!empty($_POST['username']) && !empty($_POST['password'])){
-			$testusername = "test";
-			$testpassword = md5("test");
-			if($_POST['username'] == $testusername && md5($_POST['password']) == $testpassword){
+			
+			$sql = new SqlManager();
+			$sql->setQuery("
+				SELECT * FROM autor
+				inner join benutzergruppen on Autor_Gruppen_ID = Gruppen_ID
+				WHERE Autor_Username = '{{username}}' AND Autor_Passwort = '{{passwort}}'
+				LIMIT 1
+				");
+			$sql->bindParam("{{username}}", $_POST['username']);
+			$sql->bindParam("{{passwort}}", md5($_POST['password']));
+			$user = $sql->result();
+			
+			if($user['Autor_ID']){
+				$_SESSION['login'] = $user;
 				$_SESSION['login']['type'] = "user";
-				$_SESSION['login']['username'] = $_POST['username'];
-				$_SESSION['login']['gruppe'] = "root";
 				$message['ok'] = "Sie wurden erfolgreich eingeloggt!";
 			} else {
 				$message['error'] = "Benutzerdaten sind ungültig!";

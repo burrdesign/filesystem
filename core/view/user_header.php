@@ -15,11 +15,11 @@
 	
 	echo "
 		<div class='header_info'>
-			Angemeldet als <span class='username'>".$_SESSION['login']['username']." (".$_SESSION['login']['gruppe'].")</span>
+			Angemeldet als <span class='username'>".$_SESSION['login']['Autor_Vorname']." ".$_SESSION['login']['Autor_Name']." (".$_SESSION['login']['Gruppen_Bezeichnung'].")</span>
 		</div>
 		<div class='header_action'>";
 		
-		if($_SESSION['login']['gruppe'] == "root"){
+		if($_SESSION['login']['Gruppen_Bezeichnung'] == "root"){
 			echo "
 			<a class='button button_usermanagement' href='{$root}{$reqpath}{$sep}action=User'><span class='icon-user'></span> Benutzerverwaltung</a>
 			";
