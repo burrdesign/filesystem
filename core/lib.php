@@ -27,6 +27,10 @@
 			$type = "LOGIN";
 		} elseif($request['action'] == "User"){
 			$type = "USER";
+		} elseif($request['action'] == "UserDetail" && !empty($_REQUEST['userid'])){
+			$type = "EDITUSER";
+		} elseif($request['action'] == "newUser"){
+			$type = "NEWUSER";
 		} elseif(is_file($_SERVER['DOCUMENT_ROOT']."files/".$request['path'])){
 			$type = "FILE";
 		} else {

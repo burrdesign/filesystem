@@ -8,7 +8,22 @@
 	 * Ausgabe der Dateiinformationen in der Slider-Hauptbox
 	 */
 	
-	echo "<pre>Eine Datei wurde aufgerufen!</pre>";
+	$root = getRoot();
+	$sep = getRootSep();
+
+	$reqpath = $_REQUEST['path'];
+	$filepath = $_SERVER['DOCUMENT_ROOT']."/files/".$reqpath;
 	
-?>
+	$file = array();
+	$sql = new SqlManager();
+	$sql->setQuery("
+		SELECT * FROM datei
+		WHERE Datei_Speicherort = '{{path}}'
+		LIMIT 1");
+	$sql->bindParam("{{path}}", $filepath);
+	$file = $sql->result();
+	
+	echo "<pre>";
+	print_r($file);
+	echo "</pre>";
 

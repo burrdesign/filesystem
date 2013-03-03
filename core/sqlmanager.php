@@ -95,6 +95,7 @@
 				$sep = ",";
 			}
 			$query .= ")";
+			
 			$this->setQuery($query);
 			$this->execute();
 		}

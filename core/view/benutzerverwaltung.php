@@ -21,7 +21,7 @@
 	$sql = new SqlManager();
 	$sql->setQuery("
 		SELECT * FROM autor
-		inner join benutzergruppen on Autor_Gruppen_ID = Gruppen_ID
+		LEFT JOIN benutzergruppen ON Autor_Gruppen_ID = Gruppen_ID
 		");
 	$users = $sql->execute();
 

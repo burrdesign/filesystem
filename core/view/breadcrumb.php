@@ -87,6 +87,24 @@
 		echo "<div class='path_icon_box'><span class='icon icon-user'></span></div>";
 		echo "<span class='path_icon_box_pfeil'></span>";
 	
+	} elseif($_TYPE == "EDITUSER"){
+	
+		$keywords = $_REQUEST['s'];
+		echo "<span class='first'>Benutzer bearbeiten</span>";
+		
+		//Breadcrumb-Icon ausgeben
+		echo "<div class='path_icon_box'><span class='icon icon-user'></span></div>";
+		echo "<span class='path_icon_box_pfeil'></span>";
+	
+	} elseif($_TYPE == "NEWUSER"){
+	
+		$keywords = $_REQUEST['s'];
+		echo "<span class='first'>Neuen Benutzer anlegen</span>";
+		
+		//Breadcrumb-Icon ausgeben
+		echo "<div class='path_icon_box'><span class='icon icon-user'></span></div>";
+		echo "<span class='path_icon_box_pfeil'></span>";
+	
 	}
 	
 	echo "</h3>";

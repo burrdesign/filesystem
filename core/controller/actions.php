@@ -13,6 +13,7 @@
 	 */
 	 
 	$message = array();
+	$sql = new SqlManager();
 	 
 	if($_REQUEST['action'] == 'createDir'){
 	
@@ -30,7 +31,11 @@
 			mkdir($filepath);
 			unset($_GET['action']);
 			unset($_POST['action']);
-			$message['ok'] = "Verzeichnis wurde erfolgreich angelegt!";
+			if(is_dir($filepath)){
+				$message['ok'] = "Verzeichnis wurde erfolgreich angelegt!";
+			} else {
+				$message['error'] = "Verzeichnis konnte nicht angelegt werden!";
+			}
 		}
 		
 	} elseif($_REQUEST['action'] == 'deleteDir'){
@@ -76,10 +81,49 @@
 			$_GET['action'] = "newFile";
 			$_POST['action'] = "newFile";
 		} else {
+			//Datei hochladen
 			move_uploaded_file($_FILES['upload']['tmp_name'],$filepath);
-			unset($_GET['action']);
-			unset($_POST['action']);
-			$message['ok'] = "Datei wurde erfolgreich hochgeladen!";
+			
+			if(is_file($filepath)){
+				//Datenbankeintrag vorbereiten
+				$new = array();
+				$new['Datei_Speicherort'] = $filepath;
+				$new['Datei_Bezeichnung'] = $_FILES['upload']['name'];
+				$new['Datei_Autor_ID'] = $_SESSION['login']['Autor_ID'];
+				$new['Datei_Groesse'] = filesize($filepath);
+				
+				//Dateityp ermitteln und gucken, ob der Typ bereits existiert
+				$filetype = mime_content_type($filepath);
+				$sql->setQuery("
+					SELECT Dateityp_Id FROM dateityp
+					WHERE Dateityp_Bezeichnung = '{{typ}}'
+					LIMIT 1");
+				$sql->bindParam("{{typ}}", $filetype);
+				$type = $sql->result();
+				
+				//wenn Typ vorhanden ist, Id verwenden, sonst neu anlegen
+				if($type['Dateityp_Id']){
+					$new['Datei_Dateityp_ID'] = $type['Dateityp_Id'];
+				} else {
+					$newtype = array();
+					$newtype['Dateityp_Bezeichnung'] = $filetype;
+					$sql->insert("dateityp", $newtype);
+					$new['Datei_Dateityp_ID'] = $sql->getLastInsertID();
+				}
+				
+				//Datei in DB schreiben
+				$sql->insert("datei", $new);
+				
+				//Action löschen + Message definieren
+				unset($_GET['action']);
+				unset($_POST['action']);
+				$message['ok'] = "Datei wurde erfolgreich hochgeladen!";
+			} else {
+				//Fehler beim Upload
+				unset($_GET['action']);
+				unset($_POST['action']);
+				$message['error'] = "Es ist ein Fehler beim Upload aufgetreten!";
+			}
 		}
 	
 	} elseif($_REQUEST['action'] == 'deleteFile'){
@@ -90,15 +134,118 @@
 		 */
 	
 		$filepath = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $_REQUEST['path'] . $_REQUEST['filename'];
+		$file = array();
+		$sql->setQuery("
+			SELECT Datei_ID FROM datei
+			WHERE Datei_Speicherort = '{{Pfad}}'
+			LIMIT 1");
+		$sql->bindParam("{{Pfad}}", $filepath);
+		$file = $sql->result();
+		
 		if(!is_file($filepath)){
 			$message['error'] = "Datei konnte nicht gel&ouml;scht werden!";
 			unset($_GET['action']);
 			unset($_POST['action']);
+			unset($_REQUEST['action']);
 		} else {
 			unlink($filepath);
+			$sql->delete("datei", $file);
 			unset($_GET['action']);
 			unset($_POST['action']);
+			unset($_REQUEST['action']);
 			$message['ok'] = "Datei wurde erfolgreich gel&ouml;scht!";
+		}
+		
+	} elseif($_REQUEST['action'] == 'saveUser'){
+	
+		/**
+		 * Benutzerdaten speichern
+		 */
+		if($_REQUEST['Autor_Username'] == ""){
+			$message['error'] = "Es muss ein Benutzername angegeben werden!";
+		} else {
+			$sql->setQuery("
+				SELECT Autor_ID FROM autor
+				WHERE Autor_Username = {{username}} AND Autor_ID != {{id}}");
+			$sql->bindParam("{{username}}", $_REQUEST['Autor_Username']);
+			$sql->bindParam("{{id}}", $_REQUEST['Autor_ID'], "int");
+			$test = $sql->execute();
+			
+			if(mysql_num_rows($test) > 0){
+				$message['error'] = "Benutzername ist bereits vergeben!";
+			} else {
+				//OK, Benutzer speichern
+				if(!empty($_REQUEST['Autor_Passwort'])){
+					$_REQUEST['Autor_Passwort'] = md5($_REQUEST['Autor_Passwort']);
+				}
+				$sql->update("autor", $_REQUEST);
+				$message['ok'] = "&Auml;nderungen wurden erfolgreich gespeichert!";
+			}
+		}
+		
+		$_GET['action'] = "UserDetail";
+		$_POST['action'] = "UserDetail";
+		$_REQUEST['action'] = "UserDetail";
+		
+	} elseif($_REQUEST['action'] == 'deleteUser' && $_REQUEST['userid']){
+	
+		/**
+		 * Benutzer löschen
+		 */
+		if($_REQUEST['userid'] == $_SESSION['login']['Autor_ID']){
+			$message['error'] = "Bitte keinen Suizid begehen!";
+			$_GET['action'] = "UserDetail";
+			$_POST['action'] = "UserDetail";
+			$_REQUEST['action'] = "UserDetail";
+		} else {
+			$delete = array();
+			$delete['Autor_ID'] = $_REQUEST['userid'];
+			$sql->delete("autor", $delete);
+			$message['ok'] = "Benutzer wurde erfolgreich gel&ouml;scht!";
+			$_GET['action'] = "User";
+			$_POST['action'] = "User";
+			$_REQUEST['action'] = "User";
+		}
+	
+	} elseif($_REQUEST['action'] == 'createUser'){
+	
+		/**
+		 * Neuen Benutzer anlegen
+		 */
+		if(empty($_REQUEST['Autor_Username']) || empty($_REQUEST['Autor_Passwort'])){
+			//Nötige Daten wurden nicht angegeben
+			$message['error'] = "Bitte geben Sie alle notwendigen Daten an!";
+			$_GET['action'] = "NewUser";
+			$_POST['action'] = "NewUser";
+			$_REQUEST['action'] = "NewUser";
+		} else {
+		
+			//Prüfen, ob Benutzername schon existiert
+			$sql->setQuery("
+				SELECT Autor_ID FROM autor
+				WHERE Autor_Username = '{{username}}'");
+			$sql->bindParam("{{username}}", $_REQUEST['Autor_Username']);
+			$test = $sql->execute();
+			
+			if(mysql_num_rows($test) > 0){#
+			
+				$message['error'] = "Benutzername wird bereits verwendet!";
+				$_GET['action'] = "newUser";
+				$_POST['action'] = "newUser";
+				$_REQUEST['action'] = "newUser";
+				
+			} else {
+			
+				$_REQUEST['Autor_Passwort'] = md5($_REQUEST['Autor_Passwort']);
+				$sql->insert("autor", $_REQUEST);
+				
+				$message['ok'] = "Benutzer wurde erfolgreich angelegt!";
+				
+				$_GET['action'] = "User";
+				$_POST['action'] = "User";
+				$_REQUEST['action'] = "User";
+			
+			}
 		}
 	
 	} elseif($_REQUEST['action'] == 'doLogin'){

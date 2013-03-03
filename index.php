@@ -20,20 +20,22 @@
 	 * nach Anfrage ändern wird der Inhalt über modulare Controller gesteuert! Dadurch wird das
 	 * MVC-Prinzip auf minimalistischer Weise simuliert.
 	 */
-	session_start(); 
+	session_start();
 	
 	/**
 	 * Allgemeine Variablen- und Funktionsbibliotheken laden
 	 */
-	include($_SERVER['DOCUMENT_ROOT']."core/lib.php");
+	include($_SERVER['DOCUMENT_ROOT']."/core/lib.php");
 	include($_SERVER['DOCUMENT_ROOT']."/core/sqlmanager.php");
+	
+	$root = getRoot();
+	$reqpath = $_REQUEST['path'];
 	
 	/**
 	 * Controller für die Actionphase (z.B. für den Dateiupload etc.)
 	 */
-	include($_SERVER['DOCUMENT_ROOT']."core/controller/actions.php");
+	include($_SERVER['DOCUMENT_ROOT']."/core/controller/actions.php");
 ?>
-
 <!doctype html>
 <html>
 <head>
@@ -54,7 +56,7 @@
 <body>
 
 <div id="wrap_all">
-
+	
 	<!-- HEADER -->
 	<div id="wrap_header">
 		<div id="wrap_inner_header" class="wrapped_content">
@@ -62,7 +64,7 @@
 				/**
 				 * Controller für den Header-Content
 				 */
-				include($_SERVER['DOCUMENT_ROOT']."core/controller/header.php");
+				include($_SERVER['DOCUMENT_ROOT']."/core/controller/header.php");
 			?>
 		</div>
 	</div>
@@ -76,7 +78,7 @@
 			</div>
 			
 			<div class="searchbox">
-				<form name="filesearch" action="" method="post">
+				<form name="filesearch" action="<?php echo $root.$reqpath; ?>" method="get">
 					<input type="text" class="text" name="s" value="<?php echo $_REQUEST['s']; ?>">
 					<input type="submit" class="search_submit icon-magnifying-glass" value="suchen">
 				</form>
@@ -88,7 +90,7 @@
 						/**
 						 * Controller für den Hauptcontent (Slider)
 						 */
-						include($_SERVER['DOCUMENT_ROOT']."core/controller/slider.php");
+						include($_SERVER['DOCUMENT_ROOT']."/core/controller/slider.php");
 					?>
 				</div>
 			</div>

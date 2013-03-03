@@ -17,6 +17,7 @@
 			include($_SERVER['DOCUMENT_ROOT']."core/view/breadcrumb.php");
 			include($_SERVER['DOCUMENT_ROOT']."core/view/search_result.php");
 			echo "</div>";
+			include($_SERVER['DOCUMENT_ROOT']."core/view/sliderbuttons.php");
 			break;
 		case "FILE":
 			// Dateiinformationen ausgeben
@@ -59,14 +60,31 @@
 			include($_SERVER['DOCUMENT_ROOT']."core/view/sliderbuttons.php");
 			break;		
 		case "USER":
-			//Benutzer verwalten
+			//Benutzerliste ausgeben
 			echo "<div class='inner_box'>";
 			include($_SERVER['DOCUMENT_ROOT']."core/view/breadcrumb.php");
 			include($_SERVER['DOCUMENT_ROOT']."core/view/benutzerverwaltung.php");
 			echo "</div>";
 			include($_SERVER['DOCUMENT_ROOT']."core/view/sliderbuttons.php");
-			break;		
+			break;	
+		case "EDITUSER":
+			//Benutzer verwalten
+			echo "<div class='inner_box'>";
+			include($_SERVER['DOCUMENT_ROOT']."core/view/breadcrumb.php");
+			include($_SERVER['DOCUMENT_ROOT']."core/view/benutzerbearbeitung.php");
+			echo "</div>";
+			include($_SERVER['DOCUMENT_ROOT']."core/view/sliderbuttons.php");
+			break;	
+		case "NEWUSER":
+			//Benutzer anlegen
+			echo "<div class='inner_box'>";
+			include($_SERVER['DOCUMENT_ROOT']."core/view/breadcrumb.php");
+			include($_SERVER['DOCUMENT_ROOT']."core/view/benutzeranlegen.php");
+			echo "</div>";
+			include($_SERVER['DOCUMENT_ROOT']."core/view/sliderbuttons.php");
+			break;	
 		default:
 			//404-Fehler: Unbekannte Anfrage
+			echo "<div class='inner_box'><pre>404-Fehler</pre></div>";
 			break;
 	}
