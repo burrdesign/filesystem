@@ -113,6 +113,32 @@
 				
 				//Datei in DB schreiben
 				$sql->insert("datei", $new);
+				$new['Datei_ID'] = $sql->getLastInsertID();
+				
+				//Dateirechte
+				$insert = array(
+					"Rechte_Datei_Id" => $new['Datei_ID'],
+					"Rechte_Typ" => "User",
+					"Rechte_Schreiben" => 1,
+					"Rechte_Lesen" => 1,
+					"Rechte_Ausfuehren" => 1);
+				$sql->insert("rechtetabelle", $insert);
+				
+				$insert = array(
+					"Rechte_Datei_Id" => $new['Datei_ID'],
+					"Rechte_Typ" => "Gruppe",
+					"Rechte_Schreiben" => 1,
+					"Rechte_Lesen" => 1,
+					"Rechte_Ausfuehren" => 1);
+				$sql->insert("rechtetabelle", $insert);
+				
+				$insert = array(
+					"Rechte_Datei_Id" => $new['Datei_ID'],
+					"Rechte_Typ" => "Rest",
+					"Rechte_Schreiben" => 0,
+					"Rechte_Lesen" => 1,
+					"Rechte_Ausfuehren" => 0);
+				$sql->insert("rechtetabelle", $insert);
 				
 				//Action löschen + Message definieren
 				unset($_GET['action']);
@@ -125,6 +151,70 @@
 				$message['error'] = "Es ist ein Fehler beim Upload aufgetreten!";
 			}
 		}
+	
+	} elseif($_REQUEST['action'] == 'saveFile'){
+	
+		$filepath = $_SERVER['DOCUMENT_ROOT'] . "/files/" . $_REQUEST['path'] . $_REQUEST['filename'];
+		
+		$upd = array();
+		$upd = $_REQUEST;
+		
+		if($_FILES['upload']['tmp_name']){
+			move_uploaded_file($_FILES['upload']['tmp_name'],$filepath);
+			
+			$upd['Datei_Groesse'] = filesize($filepath);
+			
+			//Dateityp ermitteln und gucken, ob der Typ bereits existiert
+			$filetype = mime_content_type($filepath);
+			$sql->setQuery("
+				SELECT Dateityp_Id FROM dateityp
+				WHERE Dateityp_Bezeichnung = '{{typ}}'
+				LIMIT 1");
+			$sql->bindParam("{{typ}}", $filetype);
+			$type = $sql->result();
+			
+			//wenn Typ vorhanden ist, Id verwenden, sonst neu anlegen
+			if($type['Dateityp_Id']){
+				$upd['Datei_Dateityp_ID'] = $type['Dateityp_Id'];
+			} else {
+				$newtype = array();
+				$newtype['Dateityp_Bezeichnung'] = $filetype;
+				$sql->insert("dateityp", $newtype);
+				$upd['Datei_Dateityp_ID'] = $sql->getLastInsertID();
+			}
+		}
+		
+		$sql->update("datei", $upd);
+		
+		//Rechte updaten bzw. falls nötig inserten
+		$del = array();
+		$del = $_REQUEST;
+		if($del['Rechte_Typ'] == "User"){
+			$sql->delete("rechtetabelle", $del);
+			$sql->insert("rechtetabelle", $del);
+			
+			//Gruppenrechte
+			$del['Rechte_Typ'] = "Gruppe";
+			$del['Rechte_Schreiben'] = $del['Gruppe_Rechte_Schreiben'];
+			$del['Rechte_Lesen'] = $del['Gruppe_Rechte_Lesen'];
+			$del['Rechte_Ausfuehren'] = $del['Gruppe_Rechte_Ausfuehren'];
+			$sql->delete("rechtetabelle", $del);
+			$sql->insert("rechtetabelle", $del);
+			
+			//Resterechte
+			$del['Rechte_Typ'] = "Rest";
+			$del['Rechte_Schreiben'] = $del['Rest_Rechte_Schreiben'];
+			$del['Rechte_Lesen'] = $del['Rest_Rechte_Lesen'];
+			$del['Rechte_Ausfuehren'] = $del['Rest_Rechte_Ausfuehren'];
+			$sql->delete("rechtetabelle", $del);
+			$sql->insert("rechtetabelle", $del);
+			
+		} else {
+			$sql->delete("rechtetabelle", $del);
+			$sql->insert("rechtetabelle", $del);
+		}
+		
+		$message['ok'] = "Datei wurde erfolgreich gespeichert!";
 	
 	} elseif($_REQUEST['action'] == 'deleteFile'){
 	

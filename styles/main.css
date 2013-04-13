@@ -302,6 +302,10 @@ body {
 	padding:2px 4px 2px 0;
 	vertical-align:middle;
 }
+#slider table.form td.label{
+	font-weight:bold;
+	padding-right:10px;
+}
 #slider table.form input.text { 
 	padding:5px; border:1px solid #3d302f;
 }

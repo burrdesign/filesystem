@@ -28,9 +28,12 @@
 			$t = explode("/",$reqpath);
 			$filename = $t[count($t) - 1];
 			$dirname = str_replace($filename,"",$reqpath);
-			echo "
-				<a class='button_back' href='{$root}{$dirname}{$sep}action=deleteFile&filename={$filename}'><span class='icon-trash-fill'></span> Datei l&ouml;schen</a>
-				";
+			
+			if($rechte['Rechte_Ausfuehren'] == 1){
+				echo "
+					<a class='button_back' href='{$root}{$dirname}{$sep}action=deleteFile&filename={$filename}'><span class='icon-trash-fill'></span> Datei l&ouml;schen</a>
+					";
+			}
 		}
 	} elseif($_TYPE == "NEWDIR" || $_TYPE == "NEWFILE" || $_TYPE == "LOGIN"){
 		echo "
